@@ -21,19 +21,20 @@ function convertPokemonToLi(pokemon) {
     poke.type = poke.types[0]
 
     return `
-    <li class="pokemon ${poke.type}">
-        <span class="number">#${poke.id}</span>
-        <span class="name">${poke.name}</span>
+        <li class="pokemon ${poke.type}">
+            <span class="number">#${poke.id}</span>
+            <span class="name">${poke.name}</span>
 
-        <div class="detail">
-            <ol class="types">
-                ${poke.types.map((type) => `<li class="type ${type}">${type}</li>`).join('')}
-            </ol>
+            <div class="detail">
+                <ol class="types">
+                    ${poke.types.map((type) => `<li class="type ${type}">${type}</li>`).join('')}
+                </ol>
 
-            <img src="${pokemon.sprites.other.dream_world.front_default}"
-                    alt="${pokemon.name}">
-        </div>
-    </li>`
+                <img src="${pokemon.sprites.other.dream_world.front_default}"
+                        alt="${pokemon.name}">
+            </div>
+        </li>
+    `
 
 }
 
