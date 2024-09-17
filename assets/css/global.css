@@ -3,22 +3,24 @@
     box-sizing: border-box;
 }
 
-body {
-    background-color: #f6f8fc;
+body{
+    background-color: #f5f5f5;
 }
 
-.content {
-    width: 100vw;
-    height: 100vh;
+.content{
     padding: 1rem;
     background-color: #fff;
+    min-height: 100vh;
 }
 
-@media screen and (min-width: 992px) {
-    .content {
-        max-width: 992px;
-        height: auto;
+
+@media screen and (min-width: 1200px){
+    .content{
+        max-width: 1200px;        
         margin: 1rem auto;
+        height: auto;
         border-radius: 1rem;
+        border: 1px solid #bfbdbd60;
+        min-height: auto;
     }
 }
