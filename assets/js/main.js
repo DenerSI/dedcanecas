@@ -23,10 +23,31 @@ function convertPokemonToLi(pokemon) {
     `
 }
 
+function moreInfoPokemon() {
+    return `
+        <div id="modal" class="modal">
+            <div class="modal-content">
+                <span id="closeModalButton" class="close">&times;</span>
+                aaaaaaa
+            </div>
+        </div>
+    `
+}
+
+function addClickEventToItems() {
+    const pokemonItems = document.querySelectorAll('.pokemon');
+    pokemonItems.forEach((item) => {
+        item.addEventListener('click', () => {
+            moreInfoPokemon();
+        });
+    });
+}
+
 function loadPokemonItens(offset, limit) {
     pokeApi.getPokemons(offset, limit).then((pokemons = []) => {
         const newHtml = pokemons.map(convertPokemonToLi).join('')
-        pokemonList.innerHTML += newHtml
+        pokemonList.innerHTML += newHtml;
+        addClickEventToItems();
     })
 }
 
