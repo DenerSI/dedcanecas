@@ -7,7 +7,7 @@ let offset = 0;
 
 function convertPokemonToLi(pokemon) {
     return `
-        <li class="pokemon ${pokemon.type}">
+        <li class="pokemon ${pokemon.type}" data-number="${pokemon.number}" data-name="${pokemon.name}" data-types="${pokemon.types.join(',')}" data-photo="${pokemon.photo}">
             <span class="number">#${pokemon.number}</span>
             <span class="name">${pokemon.name}</span>
 
@@ -16,29 +16,60 @@ function convertPokemonToLi(pokemon) {
                     ${pokemon.types.map((type) => `<li class="type ${type}">${type}</li>`).join('')}
                 </ol>
 
-                <img src="${pokemon.photo}"
-                     alt="${pokemon.name}">
+                <img src="${pokemon.photo}" alt="${pokemon.name}">
             </div>
         </li>
     `
 }
 
-function moreInfoPokemon() {
-    return `
+function moreInfoPokemon(pokemonData) {
+    // Criando o HTML do modal
+    const modalHTML = `
         <div id="modal" class="modal">
             <div class="modal-content">
                 <span id="closeModalButton" class="close">&times;</span>
-                aaaaaaa
+                <h2>${pokemonData.name}</h2>
+                <p>Número: #${pokemonData.number}</p>
+                <p>Tipos: ${pokemonData.types}</p>
+                <img src="${pokemonData.photo}" alt="${pokemonData.name}">
             </div>
         </div>
-    `
+    `;
+
+    // Adicionando o modal ao DOM
+    document.body.insertAdjacentHTML('beforeend', modalHTML);
+
+    // Selecionando o modal e o botão de fechar
+    const modal = document.getElementById('modal');
+    const closeModalButton = document.getElementById('closeModalButton');
+
+    // Exibindo o modal
+    modal.style.display = "block";
+
+    // Evento para fechar o modal ao clicar no "X"
+    closeModalButton.addEventListener('click', () => {
+        modal.remove();
+    });
+
+    // Evento para fechar o modal ao clicar fora dele
+    window.addEventListener('click', (event) => {
+        if (event.target === modal) {
+            modal.remove();
+        }
+    });
 }
 
 function addClickEventToItems() {
     const pokemonItems = document.querySelectorAll('.pokemon');
     pokemonItems.forEach((item) => {
         item.addEventListener('click', () => {
-            moreInfoPokemon();
+            const pokemonData = {
+                number: item.getAttribute('data-number'),
+                name: item.getAttribute('data-name'),
+                types: item.getAttribute('data-types'),
+                photo: item.getAttribute('data-photo')
+            };
+            moreInfoPokemon(pokemonData);
         });
     });
 }
