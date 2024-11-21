@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pokedex</title>
+    <title>Pokédex Gabriel</title>
 
     <!-- Normalize CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css"
@@ -20,11 +20,17 @@
     <!-- Nosso CSS -->
     <link rel="stylesheet" href="/assets/css/global.css">
     <link rel="stylesheet" href="/assets/css/pokedex.css">
+    <link rel="stylesheet" href="/assets/css/pokedetail.css">
 </head>
 
 <body>
+
+    <div class="poketitle">
+        <h1>Pokédex</h1>
+    </div>
+   
     <section class="content">
-        <h1>Pokedex</h1>
+        
 
         <ol id="pokemonList" class="pokemons">
             <!-- ..... Pokemons here ..... -->
@@ -32,15 +38,17 @@
 
         <div class="pagination">
             <button id="loadMoreButton" type="button">
-                Load More
+                Ver mais
             </button>
         </div>
     </section>
 
     <!-- Nosso JS -->
+    <section id= "card"></section>
     <script src="/assets/js/pokemon-model.js"></script>
     <script src="/assets/js/poke-api.js"></script>
     <script src="/assets/js/main.js"></script>
+    <script src="/assets/js/poke-details.js"></script>
 </body>
 
 </html>
