@@ -4,7 +4,13 @@
 }
 
 body {
-    background-color: #f6f8fc;
+    background: linear-gradient(
+      325deg,
+      #004d00 0%,
+      #006400 30%,
+      #00b33c 70%,
+      #b3ffb3 100%
+    );
 }
 
 .content {
