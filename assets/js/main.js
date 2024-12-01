@@ -1,5 +1,6 @@
 const pokemonList = document.getElementById('pokemonList')
 const loadMoreButton = document.getElementById('loadMoreButton')
+const scrollTopButton = document.getElementById('scrollTopButton') 
 
 const maxRecords = 151
 const limit = 10
@@ -44,4 +45,16 @@ loadMoreButton.addEventListener('click', () => {
     } else {
         loadPokemonItens(offset, limit)
     }
+})
+
+window.addEventListener('scroll', () => {
+    if (window.scrollY > 200) {
+        scrollTopButton.classList.remove('hidden');
+    } else {
+        scrollTopButton.classList.add('hidden');
+    }
+});
+
+scrollTopButton.addEventListener('click', () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
 })
