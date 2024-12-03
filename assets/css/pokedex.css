@@ -163,3 +163,32 @@
         grid-template-columns: 1fr 1fr 1fr 1fr;
     }
 }
+button#backToTop {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    padding: 10px 15px;
+    background-color: #6c79db;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 16px;
+    display: none;
+    color:#fff;
+
+}
+.details-link {
+    display: inline-block;
+    margin-top: 10px;
+    padding: 5px 10px;
+    background-color: #007BFF;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 5px;
+    font-size: 14px;
+}
+
+.details-link:hover {
+    background-color: #28272b;
+};
+

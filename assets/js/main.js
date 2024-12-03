@@ -19,6 +19,7 @@ function convertPokemonToLi(pokemon) {
                 <img src="${pokemon.photo}"
                      alt="${pokemon.name}">
             </div>
+            <a href="details.html?number=${pokemon.number}" class="details-link">Ver detalhes</a>
         </li>
     `
 }
@@ -45,3 +46,29 @@ loadMoreButton.addEventListener('click', () => {
         loadPokemonItens(offset, limit)
     }
 })
+
+function renderPokemonDetails(pokemon) {
+    document.getElementById('pokemonName').textContent = `${pokemon.name} (#${pokemon.number})`;
+    document.getElementById('pokemonImage').src = pokemon.photo;
+    document.getElementById('pokemonNumber').textContent = `#${pokemon.number}`;
+    document.getElementById('pokemonNameInfo').textContent = pokemon.name;
+
+    const typesContainer = document.getElementById('pokemonTypes');
+    typesContainer.innerHTML = pokemon.types
+        .map((type) => `<span class="type ${type}">${type}</span>`)
+        .join('');
+}
+
+const backToTopButton = document.getElementById('backToTop');
+
+window.addEventListener('scroll', () => {
+    if (window.scrollY > 300) {
+        backToTopButton.style.display = 'block';
+    } else {
+        backToTopButton.style.display = 'none';
+    }
+});
+
+backToTopButton.addEventListener('click', () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+});
