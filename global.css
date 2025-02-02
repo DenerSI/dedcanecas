@@ -1,0 +1,51 @@
+/* Reset CSS */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Variáveis CSS */
+:root {
+    --font-family: 'Roboto', sans-serif;
+    --background-color: #f6f8fc;
+    --content-background-color: #fff;
+    --content-max-width: 992px;
+    --content-padding: 1rem;
+    --content-border-radius: 1rem;
+}
+
+/* Estilos Globais */
+body {
+    font-family: var(--font-family);
+    background-color: var(--background-color);
+}
+
+.content {
+    width: 100vw;
+    height: 100vh;
+    padding: var(--content-padding);
+    background-color: var(--content-background-color);
+}
+
+/* Responsividade */
+@media screen and (min-width: 576px) {
+    .content {
+        padding: 2rem;
+    }
+}
+
+@media screen and (min-width: 768px) {
+    .content {
+        padding: 3rem;
+    }
+}
+
+@media screen and (min-width: 992px) {
+    .content {
+        max-width: var(--content-max-width);
+        height: auto;
+        margin: var(--content-padding) auto;
+        border-radius: var(--content-border-radius);
+    }
+}
