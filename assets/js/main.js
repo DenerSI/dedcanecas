@@ -30,9 +30,10 @@ function loadPokemonItens(offset, limit) {
     })
 }
 
+
 loadPokemonItens(offset, limit)
 
-loadMoreButton.addEventListener('click', () => {
+loadMoreButton.addEventListener('click', function() {
     offset += limit
     const qtdRecordsWithNexPage = offset + limit
 
@@ -45,3 +46,21 @@ loadMoreButton.addEventListener('click', () => {
         loadPokemonItens(offset, limit)
     }
 })
+
+   const btnScrollTop = document.querySelector(".botaoVoltar");
+
+   window.addEventListener("scroll", () => {
+     if (window.scrollY > 100) {
+       btnScrollTop.classList.add("show");
+     } else {
+       btnScrollTop.classList.remove("show");
+     }
+   });
+
+   btnScrollTop.addEventListener("click", (e) => {
+     e.preventDefault();
+     window.scrollTo({
+       top: 0,
+       behavior: "smooth",
+     });
+   });
