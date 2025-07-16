@@ -13,6 +13,8 @@
     padding: 1rem;
     border-radius: 1rem;
     background-color: #49d0b0;
+    min-width: 145px;
+    max-width: 195px;
 }
 
 .pokemon .number {
