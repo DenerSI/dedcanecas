@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+  <meta charset="UTF-8" />
+  <title>Detalhes do Pokémon</title>
+  <link rel="stylesheet" href="./assets/css/pokedex.css">
+
+</head>
+
+<body>
+  <div class="card">
+    <h1 id="pokemon-nome">Carregando…</h1>
+    <img id="pokemon-imagem" alt="" />
+    <p id="pokemon-tipos"></p>
+    <p id="pokemon-altura"></p>
+    <p id="pokemon-peso"></p>
+    <a href="index.html" class="voltar">← Voltar para a Pokédex</a>
+  </div>
+
+  <script>
+    const params = new URLSearchParams(window.location.search);
+    const name = params.get("pokemon");
+    document.addEventListener("DOMContentLoaded", async () => {
+
+      const nomeEl = document.getElementById("pokemon-nome");
+      const tiposEl = document.getElementById("pokemon-tipos");
+      const alturaEl = document.getElementById("pokemon-altura");
+      const pesoEl = document.getElementById("pokemon-peso");
+      const imgEl = document.getElementById("pokemon-imagem");
+
+      if (!name) {
+        nomeEl.textContent = "Nenhum Pokémon selecionado.";
+        return;
+      }
+
+      try {
+        const res = await fetch(`https://pokeapi.co/api/v2/pokemon/${name}`);
+        if (!res.ok) throw new Error("Resposta da API não OK");
+        const data = await res.json();
+
+        nomeEl.textContent = data.name;
+        imgEl.src = data.sprites.front_default || data.sprites.other?.["official-artwork"]?.front_default || "";
+        imgEl.alt = data.name;
+        tiposEl.textContent = "Tipos: " + data.types.map(t => t.type.name).join(", ");
+        alturaEl.textContent = "Altura: " + data.height / 10 + " m";
+        pesoEl.textContent = "Peso: " + data.weight / 10 + " kg";
+      } catch (e) {
+        console.error(e);
+        nomeEl.textContent = "Erro ao carregar os dados.";
+      }
+    });
+  </script>
+</body>
+
+</html>
