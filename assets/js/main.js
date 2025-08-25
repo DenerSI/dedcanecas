@@ -1,47 +1,58 @@
-const pokemonList = document.getElementById('pokemonList')
-const loadMoreButton = document.getElementById('loadMoreButton')
+document.addEventListener("DOMContentLoaded", () => {
+  const pokedex = document.getElementById("pokedex");
+  const botao = document.getElementById("carregar-mais");
 
-const maxRecords = 151
-const limit = 10
-let offset = 0;
+  let offset = 0;   // Contador de Pokémon já carregados
+  const limit = 9; // Quantos carregar por vez
 
-function convertPokemonToLi(pokemon) {
-    return `
-        <li class="pokemon ${pokemon.type}">
-            <span class="number">#${pokemon.number}</span>
-            <span class="name">${pokemon.name}</span>
+  const coresTipos = {
+    normal: "#A8A77A", fire: "#EE8130", water: "#6390F0", electric: "#F7D02C",
+    grass: "#7AC74C", ice: "#96D9D6", fighting: "#C22E28", poison: "#A33EA1",
+    ground: "#E2BF65", flying: "#A98FF3", psychic: "#F95587", bug: "#A6B91A",
+    rock: "#B6A136", ghost: "#735797", dragon: "#6F35FC", dark: "#705746",
+    steel: "#B7B7CE", fairy: "#D685AD"
+  };
 
-            <div class="detail">
-                <ol class="types">
-                    ${pokemon.types.map((type) => `<li class="type ${type}">${type}</li>`).join('')}
-                </ol>
+  async function carregarPokemons() {
+    try {
+      const res = await fetch(`https://pokeapi.co/api/v2/pokemon?offset=${offset}&limit=${limit}`);
+      const data = await res.json();
 
-                <img src="${pokemon.photo}"
-                     alt="${pokemon.name}">
-            </div>
-        </li>
-    `
-}
+      for (let pokemon of data.results) {
+        // Pega o ID
+        const url = new URL(pokemon.url);
+        const parts = url.pathname.split("/").filter(Boolean);
+        const id = parts[parts.length - 1];
 
-function loadPokemonItens(offset, limit) {
-    pokeApi.getPokemons(offset, limit).then((pokemons = []) => {
-        const newHtml = pokemons.map(convertPokemonToLi).join('')
-        pokemonList.innerHTML += newHtml
-    })
-}
+        // Busca detalhes para pegar o tipo
+        const detalheRes = await fetch(pokemon.url);
+        const detalhe = await detalheRes.json();
+        const tipoPrincipal = detalhe.types[0].type.name;
 
-loadPokemonItens(offset, limit)
+        // Cria card
+        const link = document.createElement("a");
+        link.href = `detalhes.html?pokemon=${encodeURIComponent(pokemon.name)}`;
+        link.title = pokemon.name;
+        link.style.backgroundColor = coresTipos[tipoPrincipal] || "#EEE";
 
-loadMoreButton.addEventListener('click', () => {
-    offset += limit
-    const qtdRecordsWithNexPage = offset + limit
+        const img = document.createElement("img");
+        img.alt = pokemon.name;
+        img.src = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${id}.png`;
 
-    if (qtdRecordsWithNexPage >= maxRecords) {
-        const newLimit = maxRecords - offset
-        loadPokemonItens(offset, newLimit)
+        link.appendChild(img);
+        pokedex.appendChild(link);
+      }
 
-        loadMoreButton.parentElement.removeChild(loadMoreButton)
-    } else {
-        loadPokemonItens(offset, limit)
+      // Atualiza o offset
+      offset += limit;
+    } catch (err) {
+      console.error("Erro ao carregar Pokémon:", err);
     }
-})
+  }
+
+  // Carrega os primeiros Pokémon
+  carregarPokemons();
+
+  // Adiciona evento ao botão
+  botao.addEventListener("click", carregarPokemons);
+});
