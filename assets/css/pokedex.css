@@ -146,6 +146,13 @@
     border-radius: 1rem;
 }
 
+
+.pokemon.legendary {
+    border: 3px solid gold;
+    box-shadow: 0 0 15px gold;
+    position: relative;
+}
+
 @media screen and (min-width: 380px) {
     .pokemons {
         grid-template-columns: 1fr 1fr;
