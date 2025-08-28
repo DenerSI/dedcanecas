@@ -97,6 +97,13 @@
     text-transform: capitalize;
     color: #fff;
     margin-bottom: .25rem;
+    transition: color 0.3s ease, transform 0.3s ease;
+}
+
+.pokemon .name:hover {
+    color: #ffdd57;
+    transform: scale(1.1);
+    cursor: pointer;
 }
 
 .pokemon .detail {
