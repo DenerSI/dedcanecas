@@ -3,22 +3,120 @@
     box-sizing: border-box;
 }
 
+html {
+    scroll-behavior: smooth;
+}
+
 body {
-    background-color: #f6f8fc;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+    font-size: 16px;
+    line-height: 1.6;
 }
 
 .content {
-    width: 100vw;
-    height: 100vh;
-    padding: 1rem;
+    width: 100%;
+    min-height: 100vh;
+    padding: 2rem 1rem;
     background-color: #fff;
+    box-shadow: 0 0 30px rgba(0, 0, 0, 0.1);
+}
+
+/* Scrollbar personalizada */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: linear-gradient(45deg, #6c79db, #4ecdc4);
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(45deg, #5a67d8, #38b2ac);
+}
+
+/* Seleção de texto */
+::selection {
+    background: rgba(108, 121, 219, 0.3);
+    color: #333;
+}
+
+/* Foco para acessibilidade */
+*:focus {
+    outline: 2px solid #6c79db;
+    outline-offset: 2px;
+}
+
+/* Animações globais */
+@keyframes pulse {
+    0%, 100% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.7;
+    }
+}
+
+@keyframes bounce {
+    0%, 20%, 50%, 80%, 100% {
+        transform: translateY(0);
+    }
+    40% {
+        transform: translateY(-10px);
+    }
+    60% {
+        transform: translateY(-5px);
+    }
+}
+
+/* Utilitários */
+.text-center {
+    text-align: center;
+}
+
+.text-left {
+    text-align: left;
+}
+
+.text-right {
+    text-align: right;
+}
+
+.hidden {
+    display: none !important;
+}
+
+.visible {
+    display: block !important;
+}
+
+/* Responsividade */
+@media screen and (min-width: 768px) {
+    .content {
+        padding: 3rem 2rem;
+    }
 }
 
 @media screen and (min-width: 992px) {
     .content {
-        max-width: 992px;
-        height: auto;
-        margin: 1rem auto;
-        border-radius: 1rem;
+        max-width: 1200px;
+        margin: 2rem auto;
+        border-radius: 20px;
+        min-height: auto;
+    }
+}
+
+@media screen and (min-width: 1200px) {
+    .content {
+        max-width: 1400px;
+        padding: 4rem 3rem;
     }
 }
