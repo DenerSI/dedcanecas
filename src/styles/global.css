@@ -1,0 +1,235 @@
+* {
+    font-family: "Roboto", sans-serif;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #f6f8fc;
+    background-image: url(../img/bg.png);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;;
+
+}
+
+.logo {
+    width: 200px;
+    display: block;
+    margin: 1rem auto;
+}
+
+
+
+.content {
+    min-height: 100vh;
+    padding: 1rem;
+    background-color: #fff;
+}
+
+@media screen and (min-width: 992px) {
+    .content {
+        max-width: 992px;
+        height: auto;
+        margin: 1rem auto;
+        border-radius: 1rem;
+    }
+}
+
+.content h1 {
+    margin: 0;
+}
+
+.pokemons {
+    display: grid;
+    grid-template-columns: 1fr;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+@media screen and (min-width: 576px) {
+    .pokemons {
+        grid-template-columns: 1fr 1fr 1fr;
+    }
+}
+
+@media screen and (min-width: 992px) {
+    .pokemons {
+        grid-template-columns: 1fr 1fr 1fr 1fr;
+    }
+}
+
+.pokemon {
+    margin: .5rem;
+    padding: 1rem;
+    color: #fff;
+    font-weight: 900;
+    letter-spacing: 0.03125rem;
+    text-transform: capitalize;
+    border-radius: 1rem;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+    animation: fadeInUp 0.5s ease-out forwards;
+}
+
+.pokemon:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+.pokemon .number {
+    color: rgba(255, 255, 255, 0.7);
+    text-align: right;
+    font-size: 0.75rem;
+}
+
+.pokemon .name {
+    margin-bottom: 0.25rem;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.pokemon .detail {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.pokemon .detail .types {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+}
+
+.pokemon .detail .types .type {
+    margin-bottom: 0.3125rem;
+    text-align: center;
+    padding: 0.25rem 0.5rem;
+    font-size: .8rem;
+    border-radius: 0.75rem;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    filter: brightness(1.1);
+}
+
+.pokemon .detail img {
+    max-width: 100%;
+    height: 6.25rem;
+    position: absolute;
+    right: .5rem;
+    bottom: .5rem;
+}
+
+.pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem 1rem;
+    margin: 1rem 0;
+}
+
+#loadMoreButton {
+    background-color: #e55353;
+    color: white;
+    font-size: 1rem;
+    font-weight: bold;
+    text-transform: capitalize;
+    padding: 1rem 2.5rem;
+    border: none;
+    border-radius: 2rem;
+    cursor: pointer;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+    transition: all 0.2s ease-in-out;
+}
+
+#loadMore:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+    filter: brightness(1.05);
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.normal {
+    background-image: radial-gradient(circle at 20% 20%, #c6c8a3, #a6a877);
+}
+
+.grass {
+    background-image: radial-gradient(circle at 20% 20%, #a8e090, #77c850);
+}
+
+.fire {
+    background-image: radial-gradient(circle at 20% 20%, #f5ac7f, #ee7f30);
+}
+
+.water {
+    background-image: radial-gradient(circle at 20% 20%, #92b0f3, #678fee);
+}
+
+.electric {
+    background-image: radial-gradient(circle at 20% 20%, #f9db67, #f7cf2e);
+}
+
+.ice {
+    background-image: radial-gradient(circle at 20% 20%, #bce3e4, #98d5d7);
+}
+
+.ground {
+    background-image: radial-gradient(circle at 20% 20%, #e9d393, #dfbf69);
+}
+
+.flying {
+    background-image: radial-gradient(circle at 20% 20%, #c8b8f5, #a98ff0);
+}
+
+.poison {
+    background-image: radial-gradient(circle at 20% 20%, #c272c2, #a040a0);
+}
+
+.fighting {
+    background-image: radial-gradient(circle at 20% 20%, #d6645e, #bf3029);
+}
+
+.psychic {
+    background-image: radial-gradient(circle at 20% 20%, #f989a8, #f65687);
+}
+
+.dark {
+    background-image: radial-gradient(circle at 20% 20%, #997f6f, #725847);
+}
+
+.rock {
+    background-image: radial-gradient(circle at 20% 20%, #d0ba6e, #b8a137);
+}
+
+.bug {
+    background-image: radial-gradient(circle at 20% 20%, #c8d15a, #a8b720);
+}
+
+.ghost {
+    background-image: radial-gradient(circle at 20% 20%, #9683b7, #6e5896);
+}
+
+.steel {
+    background-image: radial-gradient(circle at 20% 20%, #d3d1e2, #b9b7cf);
+}
+
+.dragon {
+    background-image: radial-gradient(circle at 20% 20%, #9872f9, #6f38f6);
+}
+
+.fairy {
+    background-image: radial-gradient(circle at 20% 20%, #fbc7d9, #f9aec7);
+}
