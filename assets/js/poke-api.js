@@ -12,7 +12,9 @@ function convertPokeApiDetailToPokemon(pokeDetail) {
     pokemon.types = types
     pokemon.type = type
 
-    pokemon.photo = pokeDetail.sprites.other.dream_world.front_default
+    pokemon.photo =
+    pokeDetail.sprites.other.dream_world.front_default ||
+    pokeDetail.sprites.other['official-artwork'].front_default
 
     return pokemon
 }
@@ -33,3 +35,4 @@ pokeApi.getPokemons = (offset = 0, limit = 5) => {
         .then((detailRequests) => Promise.all(detailRequests))
         .then((pokemonsDetails) => pokemonsDetails)
 }
+
