@@ -1,46 +1,248 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
-
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pokedex</title>
+    <title>MugCustom - Personalize sua Caneca</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
 
-    <!-- Normalize CSS -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css"
-        integrity="sha512-NhSC1YmyruXifcj/KFRWoC561YpHpc5Jtzgvbuzx5VozKpWvQ+4nXhPdFgmx8xqexRcpAglTj9sIBWINXa8x5w=="
-        crossorigin="anonymous" referrerpolicy="no-referrer" />
+body { background: #f0f2f5; color: #333; }
 
-    <!-- Font Roboto -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;500;700&display=swap" rel="stylesheet">
+header {
+    background: #fff; padding: 20px 5%; display: flex;
+    justify-content: space-between; align-items: center; box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
 
-    <!-- Nosso CSS -->
-    <link rel="stylesheet" href="/assets/css/global.css">
-    <link rel="stylesheet" href="/assets/css/pokedex.css">
+.container {
+    display: flex; max-width: 1100px; margin: 40px auto;
+    gap: 40px; padding: 20px; flex-wrap: wrap;
+}
+
+/* PRÉVIA DA CANECA */
+.preview-section { flex: 1; min-width: 300px; display: flex; justify-content: center; }
+
+.mug-wrapper {
+    position: relative; width: 100%; max-width: 450px;
+}
+
+#mug-base { width: 100%; display: block; }
+
+/* Posicionamento da foto na caneca */
+.user-image-container {
+    position: absolute;
+    top: 25%; /* Ajuste conforme a imagem da sua caneca */
+    left: 23%;
+    width: 35%;
+    height: 45%;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    pointer-events: none;
+}
+
+#user-photo-preview {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0.9;
+    mix-blend-mode: multiply; /* Faz a foto parecer impressa na caneca */
+}
+
+/* CONTROLES */
+.controls-section { flex: 1; min-width: 300px; }
+
+.price { font-size: 2rem; color: #2ecc71; font-weight: bold; margin-bottom: 20px; }
+
+.control-group { margin-bottom: 25px; }
+
+.control-group label { display: block; margin-bottom: 10px; font-weight: bold; }
+
+.model-selector { display: flex; gap: 15px; }
+
+.btn-color {
+    width: 40px; height: 40px; border-radius: 50%; border: 3px solid #ddd; cursor: pointer;
+}
+
+.btn-color.active { border-color: #3498db; transform: scale(1.1); }
+
+#add-to-cart {
+    width: 100%; padding: 15px; background: #3498db; color: #fff;
+    border: none; border-radius: 8px; font-size: 1.1rem; cursor: pointer; transition: 0.3s;
+}
+
+#add-to-cart:hover { background: #2980b9; }
+
+/* MODAL */
+.modal { display: none; position: fixed; z-index: 10; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); }
+.modal-content { background: white; margin: 10% auto; padding: 25px; width: 90%; max-width: 450px; border-radius: 12px; }
+.close { float: right; cursor: pointer; font-size: 1.5rem; }
+.cart-footer { margin-top: 20px; border-top: 1px solid #eee; padding-top: 15px; }
+#checkout-btn { width: 100%; padding: 10px; background: #27ae60; color: white; border: none; margin-top: 10px; border-radius: 5px; cursor: pointer; }
+
+    </style>
 </head>
-
 <body>
-    <section class="content">
-        <h1>Pokedex</h1>
 
-        <ol id="pokemonList" class="pokemons">
-            <!-- ..... Pokemons here ..... -->
-        </ol>
+    <header>
+        <div class="logo">MugCustom</div>
+        <button id="cart-btn">🛒 Carrinho (<span id="cart-count">0</span>)</button>
+    </header>
 
-        <div class="pagination">
-            <button id="loadMoreButton" type="button">
-                Load More
-            </button>
+    <main class="container">
+        <!-- ÁREA DA CANECA (ESQUERDA) -->
+        <div class="preview-section">
+            <div class="mug-wrapper" id="mug-wrapper">
+                <img id="mug-base" src="https://i.imgur.com/vHqB8p7.png" alt="Caneca Base">
+                <!-- A foto do cliente aparece aqui dentro -->
+                <div class="user-image-container">
+                    <img id="user-photo-preview" src="" alt="">
+                </div>
+            </div>
         </div>
-    </section>
 
-    <!-- Nosso JS -->
-    <script src="/assets/js/pokemon-model.js"></script>
-    <script src="/assets/js/poke-api.js"></script>
-    <script src="/assets/js/main.js"></script>
+        <!-- ÁREA DE ESCOLHAS (DIREITA) -->
+        <div class="controls-section">
+            <h1>Personalize sua Caneca</h1>
+            <p class="price">R$ <span id="mug-price">35.00</span></p>
+
+            <div class="control-group">
+                <label>1. Escolha a Cor da Caneca:</label>
+                <div class="model-selector">
+                    <button class="btn-color active" data-img="https://i.imgur.com/vHqB8p7.png" data-price="35.00" style="background: #fff;"></button>
+                    <button class="btn-color" data-img="https://i.imgur.com/S99T7v0.png" data-price="39.00" style="background: #000;"></button>
+                    <button class="btn-color" data-img="https://i.imgur.com/Y6K5Qz3.png" data-price="42.00" style="background: #e74c3c;"></button>
+                </div>
+            </div>
+
+            <div class="control-group">
+                <label>2. Envie sua Foto ou Logo:</label>
+                <input type="file" id="upload-photo" accept="image/*">
+            </div>
+
+            <button id="add-to-cart">Adicionar ao Carrinho</button>
+        </div>
+    </main>
+
+    <!-- Modal do Carrinho -->
+    <div id="cart-modal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Meu Carrinho</h2>
+            <div id="cart-items"></div>
+            <div class="cart-footer">
+                <strong>Total: R$ <span id="cart-total">0.00</span></strong>
+                <button id="checkout-btn">Finalizar Compra</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
 </body>
+<script>
+    // Dados do Produto Atual
+let selectedMug = {
+    colorName: "Branca",
+    price: 35.00,
+    image: "https://i.imgur.com/vHqB8p7.png",
+    userPhoto: null
+};
 
+let cart = [];
+
+// 1. Trocar Cor da Caneca
+const colorBtns = document.querySelectorAll('.btn-color');
+const mugBaseImg = document.getElementById('mug-base');
+const priceDisplay = document.getElementById('mug-price');
+
+colorBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+        // Estética dos botões
+        colorBtns.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+
+        // Atualizar objeto e interface
+        selectedMug.image = btn.getAttribute('data-img');
+        selectedMug.price = parseFloat(btn.getAttribute('data-price'));
+        
+        mugBaseImg.src = selectedMug.image;
+        priceDisplay.innerText = selectedMug.price.toFixed(2);
+    });
+});
+
+// 2. Upload da Foto e Pré-visualização
+const photoInput = document.getElementById('upload-photo');
+const photoPreview = document.getElementById('user-photo-preview');
+
+photoInput.addEventListener('change', function(e) {
+    const file = e.target.files[0];
+    if (file) {
+        const reader = new FileReader();
+        reader.onload = function(event) {
+            photoPreview.src = event.target.result;
+            selectedMug.userPhoto = event.target.result; // Salva a imagem (base64)
+        }
+        reader.readAsDataURL(file);
+    }
+});
+
+// 3. Carrinho
+const cartBtn = document.getElementById('cart-btn');
+const cartModal = document.getElementById('cart-modal');
+const closeBtn = document.querySelector('.close');
+const addToCartBtn = document.getElementById('add-to-cart');
+
+addToCartBtn.addEventListener('click', () => {
+    cart.push({...selectedMug});
+    updateCart();
+    alert("Caneca adicionada!");
+});
+
+function updateCart() {
+    document.getElementById('cart-count').innerText = cart.length;
+    const itemsContainer = document.getElementById('cart-items');
+    const totalDisplay = document.getElementById('cart-total');
+    
+    itemsContainer.innerHTML = "";
+    let total = 0;
+
+    cart.forEach((item, index) => {
+        total += item.price;
+        itemsContainer.innerHTML += `
+            <div style="display:flex; align-items:center; gap:10px; margin-bottom:15px; border-bottom:1px solid #eee; padding-bottom:5px;">
+                <img src="${item.image}" width="50">
+                <div style="flex:1">
+                    <small>${item.userPhoto ? 'Personalizada' : 'Simples'}</small><br>
+                    <strong>R$ ${item.price.toFixed(2)}</strong>
+                </div>
+                <button onclick="removeItem(${index})" style="color:red; border:none; background:none; cursor:pointer;">Remover</button>
+            </div>
+        `;
+    });
+    totalDisplay.innerText = total.toFixed(2);
+}
+
+function removeItem(index) {
+    cart.splice(index, 1);
+    updateCart();
+}
+
+// Abrir/Fechar Modal
+cartBtn.onclick = () => cartModal.style.display = "block";
+closeBtn.onclick = () => cartModal.style.display = "none";
+window.onclick = (e) => { if(e.target == cartModal) cartModal.style.display = "none"; }
+
+// Finalizar (Simulação)
+document.getElementById('checkout-btn').onclick = () => {
+    if(cart.length > 0) {
+        alert("Enviando pedido para o sistema de pagamento...");
+        cart = [];
+        updateCart();
+        cartModal.style.display = "none";
+    }
+};
+
+</script>
 </html>
